@@ -1,10 +1,27 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Dimensions, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Dimensions,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 
 const BOARD_SIZE = 8;
 
+const rowMap = {
+  1: 'A',
+  2: 'B',
+  3: 'C',
+  4: 'D',
+  5: 'E',
+  6: 'F',
+  7: 'G',
+  8: 'H',
+};
+
 // const KEY = 'C6';
-const ChessBoard = ({boardColor, squareColor, onPress}) => {
+const ChessBoard = ({boardColor, squareColor, onPress, showCords}) => {
   const {width} = Dimensions.get('window');
   const squareSize = width / BOARD_SIZE;
 
@@ -20,8 +37,21 @@ const ChessBoard = ({boardColor, squareColor, onPress}) => {
         style={[
           styles.square,
           {backgroundColor, width: squareSize, height: squareSize},
-        ]}
-      />
+        ]}>
+        {showCords && (
+          <Text
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              right: 0,
+              fontSize: 10,
+              color: '#555',
+              fontWeight: 'bold',
+            }}>
+            {rowMap[row + 1]} {col + 1}
+          </Text>
+        )}
+      </TouchableOpacity>
     );
   };
 

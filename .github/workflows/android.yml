@@ -1,0 +1,20 @@
+name: Build Android Release
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Yarn install
+        run:  yarn
+      - name: Build Android Release
+        run: cd android && ./gradlew assembleRelease
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v2
+        with:
+            name: my-app-release
+            path: android/app/build/outputs/apk/release/app-release.apk

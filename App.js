@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Text, Vibration} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Vibration,
+  TouchableOpacity,
+} from 'react-native';
 import ChessBoard from './src/screens/ChessBoard';
 
 const COL_NAME = {A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8};
@@ -7,7 +13,8 @@ const ROW_NAME = {8: 1, 7: 2, 6: 3, 5: 4, 4: 5, 3: 6, 2: 7, 1: 8};
 
 const App = () => {
   const [KEY, setKEY] = useState('B8');
-  const [color, setColor] = useState('#779556');
+  const [color, setColor] = useState('#fff');
+  const [showCords, setShowCords] = useState(false);
 
   useEffect(() => {
     randomGenrator();
@@ -22,7 +29,16 @@ const App = () => {
   };
   return (
     <View style={styles.container}>
-      <Text style={{color: color}}>KEY:- {KEY}</Text>
+      <TouchableOpacity
+        onPress={() => {
+          setShowCords(!showCords);
+        }}>
+        <Text style={{color: '#fff', fontSize: 13, fontWeight: '900'}}>
+          Show Cords
+        </Text>
+      </TouchableOpacity>
+
+      <Text style={{color: color, fontSize: 37, fontWeight: '900'}}>{KEY}</Text>
       <ChessBoard
         boardColor={'#EBECD0'}
         squareColor={'#779556'}
@@ -36,11 +52,12 @@ const App = () => {
           } else {
             setColor('red');
             setTimeout(() => {
-              setColor('green');
+              setColor('#fff');
             }, 1000);
             Vibration.vibrate(1 * 100);
           }
         }}
+        showCords={showCords}
       />
     </View>
   );
