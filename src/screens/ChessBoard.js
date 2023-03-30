@@ -48,7 +48,7 @@ const ChessBoard = ({boardColor, squareColor, onPress, showCords}) => {
               color: '#555',
               fontWeight: 'bold',
             }}>
-            {rowMap[row + 1]} {col + 1}
+            {row + 1} {rowMap[col + 1]}
           </Text>
         )}
       </TouchableOpacity>
