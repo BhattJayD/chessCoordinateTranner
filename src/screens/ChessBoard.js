@@ -20,7 +20,7 @@ const colMap = {
   8: 'H',
 };
 
-const rowMap =[1:8,2:7,3:6,4:5,5:4,6:3,7:2,8:1]:
+const rowMap ={1:8,2:7,3:6,4:5,5:4,6:3,7:2,8:1};
 
 // const KEY = 'C6';
 const ChessBoard = ({boardColor, squareColor, onPress, showCords}) => {
