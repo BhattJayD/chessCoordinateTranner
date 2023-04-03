@@ -9,7 +9,7 @@ import {
 
 const BOARD_SIZE = 8;
 
-const rowMap = {
+const colMap = {
   1: 'A',
   2: 'B',
   3: 'C',
@@ -19,6 +19,8 @@ const rowMap = {
   7: 'G',
   8: 'H',
 };
+
+const rowMap =[1:8,2:7,3:6,4:5,5:4,6:3,7:2,8:0]:
 
 // const KEY = 'C6';
 const ChessBoard = ({boardColor, squareColor, onPress, showCords}) => {
@@ -48,7 +50,7 @@ const ChessBoard = ({boardColor, squareColor, onPress, showCords}) => {
               color: '#555',
               fontWeight: 'bold',
             }}>
-            {row + 1} {rowMap[col + 1]}
+             {colMap[col + 1]} {rowMap[row + 1]}
           </Text>
         )}
       </TouchableOpacity>
