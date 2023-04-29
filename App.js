@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import ChessBoard from './src/screens/ChessBoard';
+import {Observer} from 'mobx-react';
+import ThemeStore from './src/store/ThemeStore';
 
 const COL_NAME = {A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8};
 const ROW_NAME = {8: 1, 7: 2, 6: 3, 5: 4, 4: 5, 3: 6, 2: 7, 1: 8};
@@ -28,38 +30,44 @@ const App = () => {
     console.log(KEY);
   };
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => {
-          setShowCords(!showCords);
-        }}>
-        <Text style={{color: '#fff', fontSize: 13, fontWeight: '900'}}>
-          Show Cords
-        </Text>
-      </TouchableOpacity>
+    <Observer>
+      {() => (
+        <View style={styles.container}>
+          <TouchableOpacity
+            onPress={() => {
+              setShowCords(!showCords);
+            }}>
+            <Text style={{color: '#fff', fontSize: 13, fontWeight: '900'}}>
+              Show Cords
+            </Text>
+          </TouchableOpacity>
 
-      <Text style={{color: color, fontSize: 37, fontWeight: '900'}}>{KEY}</Text>
-      <ChessBoard
-        boardColor={'#EBECD0'}
-        squareColor={'#779556'}
-        onPress={(row, col) => {
-          var firstLatter = KEY[0];
-          var secondLatter = KEY[1];
-          var colValuse = COL_NAME[firstLatter];
-          var rowValuse = ROW_NAME[secondLatter];
-          if (colValuse === col + 1 && rowValuse === row + 1) {
-            randomGenrator();
-          } else {
-            setColor('red');
-            setTimeout(() => {
-              setColor('#fff');
-            }, 1000);
-            Vibration.vibrate(1 * 100);
-          }
-        }}
-        showCords={showCords}
-      />
-    </View>
+          <Text style={{color: color, fontSize: 37, fontWeight: '900'}}>
+            {KEY}
+          </Text>
+          <ChessBoard
+            boardColor={ThemeStore.lightColor}
+            squareColor={ThemeStore.darkColor}
+            onPress={(row, col) => {
+              var firstLatter = KEY[0];
+              var secondLatter = KEY[1];
+              var colValuse = COL_NAME[firstLatter];
+              var rowValuse = ROW_NAME[secondLatter];
+              if (colValuse === col + 1 && rowValuse === row + 1) {
+                randomGenrator();
+              } else {
+                setColor('red');
+                setTimeout(() => {
+                  setColor('#fff');
+                }, 1000);
+                Vibration.vibrate(1 * 100);
+              }
+            }}
+            showCords={showCords}
+          />
+        </View>
+      )}
+    </Observer>
   );
 };
 
