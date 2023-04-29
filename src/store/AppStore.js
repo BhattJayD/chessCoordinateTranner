@@ -1,6 +1,9 @@
 import {makeAutoObservable} from 'mobx';
 import {Dimensions} from 'react-native';
 
+import {createNavigationContainerRef} from '@react-navigation/native';
+export const navigationRef = createNavigationContainerRef();
+
 class appStore {
   constructor() {
     makeAutoObservable(this);
@@ -14,6 +17,12 @@ class appStore {
   }
   resetFiels() {
     this.count = 1;
+  }
+
+  handelScreenNavigation(name, params) {
+    if (navigationRef.isReady()) {
+      navigationRef.navigate(name, params);
+    }
   }
 }
 const AppStore = new appStore();
