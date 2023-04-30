@@ -6,12 +6,13 @@ import ThemeStore from './src/store/ThemeStore';
 import {getFromAsyncStorage} from './src/utils/helper';
 import StorageConstants from './src/utils/StorageConstants';
 import SplashScreen from 'react-native-splash-screen';
-import Lottie from 'lottie-react-native';
+import messaging from '@react-native-firebase/messaging';
 import AppStore from './src/store/AppStore';
 import AuthStore from './src/store/AuthStore';
 
 const App = () => {
   const getTheme = async () => {
+    AppStore.requestUserPermission();
     const defaultTheme = JSON.parse(
       await getFromAsyncStorage(StorageConstants.DEFAULT_THEME),
     );
@@ -34,6 +35,17 @@ const App = () => {
       AuthStore.setField('isLoggedin', true);
     }, 1500);
     getTheme();
+    // Register background handler
+    messaging().setBackgroundMessageHandler(async remoteMessage => {
+      console.log('Message handled in the background!', remoteMessage);
+    });
+  }, []);
+  useEffect(() => {
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+
+    return unsubscribe;
   }, []);
 
   return (
