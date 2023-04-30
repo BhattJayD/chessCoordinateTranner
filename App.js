@@ -5,6 +5,10 @@ import Routes from './src/routes';
 import ThemeStore from './src/store/ThemeStore';
 import {getFromAsyncStorage} from './src/utils/helper';
 import StorageConstants from './src/utils/StorageConstants';
+import SplashScreen from 'react-native-splash-screen';
+import Lottie from 'lottie-react-native';
+import AppStore from './src/store/AppStore';
+import AuthStore from './src/store/AuthStore';
 
 const App = () => {
   const getTheme = async () => {
@@ -25,6 +29,10 @@ const App = () => {
     }
   };
   useEffect(() => {
+    SplashScreen.hide();
+    setTimeout(() => {
+      AuthStore.setField('isLoggedin', true);
+    }, 1500);
     getTheme();
   }, []);
 

@@ -3,7 +3,6 @@ import React from 'react';
 import Menu from '../screens/Menu';
 import Game from '../screens/Game';
 import Theme from '../screens/Theme';
-import {Text} from 'react-native';
 
 const PostLogin = () => {
   const Stack = createStackNavigator();
