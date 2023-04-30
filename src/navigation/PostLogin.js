@@ -31,6 +31,7 @@ const PostLogin = () => {
         options={{
           headerShown: true,
           title: 'Training',
+          headerStyle: {backgroundColor: '#3D3E4A'},
         }}
       />
     </Stack.Navigator>

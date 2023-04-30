@@ -1,3 +1,4 @@
+import {Observer} from 'mobx-react';
 import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
@@ -6,6 +7,7 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
+import GameStore from '../store/GameStore';
 
 const BOARD_SIZE = 8;
 
@@ -20,7 +22,7 @@ const colMap = {
   8: 'H',
 };
 
-const rowMap ={1:8,2:7,3:6,4:5,5:4,6:3,7:2,8:1};
+const rowMap = {1: 8, 2: 7, 3: 6, 4: 5, 5: 4, 6: 3, 7: 2, 8: 1};
 
 // const KEY = 'C6';
 const ChessBoard = ({boardColor, squareColor, onPress, showCords}) => {
@@ -31,29 +33,30 @@ const ChessBoard = ({boardColor, squareColor, onPress, showCords}) => {
     const isDarkSquare = (row + col) % 2 === 1;
     const backgroundColor = isDarkSquare ? squareColor : boardColor;
     return (
-      <TouchableOpacity
-        onPress={() => {
-          onPress(row, col);
-        }}
-        key={`${row}-${col}`}
-        style={[
-          styles.square,
-          {backgroundColor, width: squareSize, height: squareSize},
-        ]}>
-        {showCords && (
-          <Text
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              right: 0,
-              fontSize: 10,
-              color: '#555',
-              fontWeight: 'bold',
-            }}>
-             {colMap[col + 1]} {rowMap[row + 1]}
-          </Text>
+      <Observer key={`${row}-${col}`}>
+        {() => (
+          <TouchableOpacity
+            onPress={() => {
+              onPress(row, col);
+            }}
+            key={`${row}-${col}`}
+            style={[
+              styles.square,
+              {backgroundColor, width: squareSize, height: squareSize},
+            ]}>
+            {showCords && (
+              <Text
+                style={
+                  GameStore.isWhite
+                    ? styles.whiteCordsText
+                    : styles.blackCordsText
+                }>
+                {colMap[col + 1]} {rowMap[row + 1]}
+              </Text>
+            )}
+          </TouchableOpacity>
         )}
-      </TouchableOpacity>
+      </Observer>
     );
   };
 
@@ -87,6 +90,23 @@ const styles = StyleSheet.create({
   },
   square: {
     borderWidth: 0.1,
+  },
+  whiteCordsText: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    fontSize: 10,
+    color: '#555',
+    fontWeight: 'bold',
+  },
+  blackCordsText: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    fontSize: 10,
+    color: '#555',
+    fontWeight: 'bold',
+    transform: [{rotate: '180deg'}],
   },
 });
 
