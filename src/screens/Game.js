@@ -66,15 +66,7 @@ const Game = () => {
                 source={IconPack.CHESS}
               />
             </TouchableOpacity>
-            <Text
-              style={{
-                color: color,
-                fontSize: 37,
-                fontWeight: '900',
-                textAlign: 'center',
-              }}>
-              {KEY}
-            </Text>
+            <Text style={[styles.keyText, {color: color}]}>{KEY}</Text>
             <TouchableOpacity
               onPress={() => {
                 setShowCords(!showCords);
@@ -100,6 +92,10 @@ const Game = () => {
                 var rowValuse = ROW_NAME[secondLatter];
                 if (colValuse === col + 1 && rowValuse === row + 1) {
                   randomGenrator();
+                  GameStore.setField(
+                    'currentScore',
+                    GameStore.currentScore + 1,
+                  );
                 } else {
                   setColor('red');
                   setTimeout(() => {
@@ -110,6 +106,9 @@ const Game = () => {
               }}
               showCords={showCords}
             />
+          </View>
+          <View style={styles.scoreView}>
+            <Text style={styles.scoreText}>{GameStore.currentScore}</Text>
           </View>
         </View>
       )}
@@ -128,4 +127,28 @@ const styles = StyleSheet.create({
   },
   eyeImageStyle: {height: 25, width: 25},
   tintColorWhite: {tintColor: '#fff'},
+  keyText: {
+    color: '#fff',
+    fontSize: 37,
+    fontWeight: '900',
+    textAlign: 'center',
+  },
+  scoreView: {
+    padding: 26,
+    backgroundColor: ThemeStore.darkColor,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    shadowColor: ThemeStore.lightColor,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.32,
+    shadowRadius: 5.46,
+
+    elevation: 9,
+  },
+  scoreText: {color: '#fff', fontSize: 20, fontWeight: 'bold'},
 });

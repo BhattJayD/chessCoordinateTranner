@@ -11,9 +11,21 @@ import GameStore from '../../store/GameStore';
 import {Observer} from 'mobx-react';
 import AppStore from '../../store/AppStore';
 import IconPack from '../../utils/IconPack';
+import {storeToAsyncStorage} from '../../utils/helper';
+import StorageConstants from '../../utils/StorageConstants';
 
 const GameTypeModal = () => {
-  const TimeData = [30, 60, 120, 180, 240, '∞'];
+  const TimeData = [5, 30, 60, 120, 180, 240, '∞'];
+  const onPressTime = i => {
+    storeToAsyncStorage(
+      StorageConstants.GAME_PLAYED_TIME,
+      JSON.stringify(GameStore.gamePlayedTime + 1),
+    );
+    GameStore.setField('showGameTypeModal', false);
+    GameStore.setField('selectedGameTime', i != '∞' ? i : -1);
+    GameStore.setField('counter', i != '∞' ? i : -1);
+    AppStore.handelScreenNavigation('Game');
+  };
   return (
     <Observer>
       {() => (
@@ -32,12 +44,7 @@ const GameTypeModal = () => {
                     key={index}
                     style={styles.highlightStyle}
                     underlayColor={'#4141498f'}
-                    onPress={() => {
-                      GameStore.setField('showGameTypeModal', false);
-                      GameStore.setField('selectedGameTime', i != '∞' ? i : -1);
-                      GameStore.setField('counter', i != '∞' ? i : -1);
-                      AppStore.handelScreenNavigation('Game');
-                    }}>
+                    onPress={() => onPressTime(i)}>
                     <View>
                       <Image
                         source={IconPack.CHESS_CLOCK}

@@ -9,6 +9,7 @@ import SplashScreen from 'react-native-splash-screen';
 import messaging from '@react-native-firebase/messaging';
 import AppStore from './src/store/AppStore';
 import AuthStore from './src/store/AuthStore';
+import GameStore from './src/store/GameStore';
 
 const App = () => {
   const getTheme = async () => {
@@ -31,6 +32,8 @@ const App = () => {
   };
   useEffect(() => {
     SplashScreen.hide();
+    GameStore.scoreGraber();
+    // AsyncStorage.removeItem(StorageConstants.SCORE);
     setTimeout(() => {
       AuthStore.setField('isLoggedin', true);
     }, 1500);

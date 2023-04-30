@@ -3,8 +3,20 @@ import {View, Text, Modal, TouchableOpacity, StyleSheet} from 'react-native';
 import GameStore from '../../store/GameStore';
 import {Observer} from 'mobx-react';
 import AppStore from '../../store/AppStore';
+import {getFromAsyncStorage, storeToAsyncStorage} from '../../utils/helper';
+import StorageConstants from '../../utils/StorageConstants';
 
 const GameOver = () => {
+  const onPressRestart = () => {
+    GameStore.setField('showGameOverModal', false);
+    GameStore.scoreSaver();
+    GameStore.setField('counter', GameStore.selectedGameTime);
+  };
+  const onPressClose = () => {
+    GameStore.setField('showGameOverModal', false);
+    GameStore.scoreSaver();
+    AppStore.handelScreenGoBack();
+  };
   return (
     <Observer>
       {() => (
@@ -15,11 +27,7 @@ const GameOver = () => {
             transparent={true}>
             <View style={styles.modallView}>
               <View style={styles.rowWrap}>
-                <TouchableOpacity
-                  onPress={() => {
-                    GameStore.setField('showGameOverModal', false);
-                    AppStore.handelScreenGoBack();
-                  }}>
+                <TouchableOpacity onPress={async () => onPressClose()}>
                   <Text style={styles.closeShareText}>Close</Text>
                 </TouchableOpacity>
 
@@ -34,10 +42,7 @@ const GameOver = () => {
               <View style={styles.center}>
                 <TouchableOpacity
                   style={styles.restartButtomStyle}
-                  onPress={() => {
-                    GameStore.setField('showGameOverModal', false);
-                    GameStore.setField('counter', GameStore.selectedGameTime);
-                  }}>
+                  onPress={() => onPressRestart()}>
                   <Text style={styles.closeShareText}>Restart</Text>
                 </TouchableOpacity>
               </View>
