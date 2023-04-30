@@ -12,6 +12,8 @@ import ChessBoard from './ChessBoard';
 import ThemeStore from '../store/ThemeStore';
 import IconPack from '../utils/IconPack';
 import GameStore from '../store/GameStore';
+import Counter from './components/Counter';
+import GameOver from './components/GameOver';
 
 const COL_NAME = {A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8};
 const ROW_NAME = {8: 1, 7: 2, 6: 3, 5: 4, 4: 5, 3: 6, 2: 7, 1: 8};
@@ -37,6 +39,12 @@ const Game = () => {
     <Observer>
       {() => (
         <View style={styles.container}>
+          {GameStore.selectedGameTime != -1 && (
+            <>
+              <Counter />
+              <GameOver />
+            </>
+          )}
           <View
             style={{
               flexDirection: 'row',

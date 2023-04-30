@@ -24,6 +24,11 @@ class appStore {
       navigationRef.navigate(name, params);
     }
   }
+  handelScreenGoBack(name, params) {
+    if (navigationRef.isReady()) {
+      navigationRef.goBack(name, params);
+    }
+  }
 }
 const AppStore = new appStore();
 export default AppStore;

@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import AppStore from '../store/AppStore';
 import ThemeStore from '../store/ThemeStore';
 import IconPack from '../utils/IconPack';
+import GameTypeModal from './components/GameTypeModal';
+import GameStore from '../store/GameStore';
 const Menu = () => {
   return (
     <View style={styles.container}>
+      <GameTypeModal />
       <View style={styles.flexWrap}>
         <TouchableHighlight
           style={styles.highlightStyle}
@@ -22,7 +25,8 @@ const Menu = () => {
           style={styles.highlightStyle}
           underlayColor={'#4141498f'}
           onPress={() => {
-            AppStore.handelScreenNavigation('Game');
+            // AppStore.handelScreenNavigation('Game');
+            GameStore.setField('showGameTypeModal', true);
           }}>
           <View style={styles.buttonStyle}>
             <Image source={IconPack.CHESS} style={styles.iconStyle} />
