@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "368515018233",
+    "project_id": "chesscoordinatetranner",
+    "storage_bucket": "chesscoordinatetranner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368515018233:android:083adf54b4648b57f1e128",
+        "android_client_info": {
+          "package_name": "com.chesscoordinatetranner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "368515018233-9vvtoo5mqlamtrkmo58pp1k337hq90hj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_hFcUqmEnvKFWcKf5CopmWN1x0kAnaA4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "368515018233-9vvtoo5mqlamtrkmo58pp1k337hq90hj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
