@@ -5,7 +5,7 @@ import Routes from './src/routes';
 import ThemeStore from './src/store/ThemeStore';
 import {getFromAsyncStorage} from './src/utils/helper';
 import StorageConstants from './src/utils/StorageConstants';
-import SplashScreen from 'react-native-splash-screen';
+// import SplashScreen from 'react-native-splash-screen';
 import messaging from '@react-native-firebase/messaging';
 import AppStore from './src/store/AppStore';
 import AuthStore from './src/store/AuthStore';
@@ -31,7 +31,7 @@ const App = () => {
     }
   };
   useEffect(() => {
-    SplashScreen.hide();
+    // SplashScreen.hide();
     GameStore.scoreGraber();
     // AsyncStorage.removeItem(StorageConstants.SCORE);
     setTimeout(() => {
