@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, Text, StyleSheet, Vibration} from 'react-native';
+import {View, Vibration} from 'react-native';
 import {Observer} from 'mobx-react';
 import GameStore from '../../store/GameStore';
 import ThemeStore from '../../store/ThemeStore';
@@ -26,7 +26,11 @@ const Counter = () => {
       {() => (
         <View>
           <Progress.Bar
-            progress={GameStore.counter / GameStore.selectedGameTime}
+            progress={
+              GameStore.selectedGameTime > 0
+                ? GameStore.counter / GameStore.selectedGameTime
+                : 0
+            }
             width={AppStore.width}
             borderColor={ThemeStore.lightColor}
             color={ThemeStore.darkColor}
@@ -37,8 +41,3 @@ const Counter = () => {
   );
 };
 export default Counter;
-
-const styles = StyleSheet.create({
-  text: {color: ThemeStore.lightColor, fontWeight: '600'},
-  WarningText: {color: ThemeStore.darkColor, fontWeight: '600'},
-});

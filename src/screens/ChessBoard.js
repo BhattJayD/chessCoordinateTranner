@@ -1,11 +1,11 @@
 import {Observer} from 'mobx-react';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
   StyleSheet,
   View,
-  Dimensions,
   TouchableOpacity,
   Text,
+  useWindowDimensions,
 } from 'react-native';
 import GameStore from '../store/GameStore';
 
@@ -25,9 +25,12 @@ const colMap = {
 const rowMap = {1: 8, 2: 7, 3: 6, 4: 5, 5: 4, 6: 3, 7: 2, 8: 1};
 
 // const KEY = 'C6';
+const HEADER_OFFSET = 100;
+
 const ChessBoard = ({boardColor, squareColor, onPress, showCords}) => {
-  const {width} = Dimensions.get('window');
-  const squareSize = width / BOARD_SIZE;
+  const {width, height} = useWindowDimensions();
+  const boardSize = Math.min(width, height - HEADER_OFFSET);
+  const squareSize = boardSize / BOARD_SIZE;
 
   const renderSquare = (row, col) => {
     const isDarkSquare = (row + col) % 2 === 1;
@@ -77,7 +80,11 @@ const ChessBoard = ({boardColor, squareColor, onPress, showCords}) => {
     rows.push(renderRow(row));
   }
 
-  return <View style={[styles.board, {width}]}>{rows}</View>;
+  return (
+    <View style={[styles.board, {width: boardSize, height: boardSize}]}>
+      {rows}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

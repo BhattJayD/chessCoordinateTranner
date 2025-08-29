@@ -19,12 +19,12 @@ class gameStore {
     this[value] = data;
     console.log(value, data);
   }
-  resetFiels() {
+
+  resetFields() {
     this.isWhite = true;
-    this.counter = 0;
+    this.counter = this.selectedGameTime;
     this.showGameOverModal = false;
     this.showGameTypeModal = false;
-    this.selectedGameTime = 0;
     this.currentScore = 0;
     this.totalScore = 0;
     this.gamePlayedTime = 0;
